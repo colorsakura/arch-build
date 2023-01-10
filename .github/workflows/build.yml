@@ -12,7 +12,7 @@ jobs:
         repos: [anki]
         include:
           - repos: anki
-            preinstall-pkgs: "pipewire-jack"
+            preinstall-pkgs: "pipewire-jack noto-fonts qt6-multimedia-ffmpeg"
 
       fail-fast: false
       
