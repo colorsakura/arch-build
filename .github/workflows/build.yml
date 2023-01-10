@@ -10,6 +10,9 @@ jobs:
     strategy:
       matrix:
         repos: [anki]
+        include:
+          - repos: anki
+            preinstall-pkgs: "pipewire-jack"
 
       fail-fast: false
       
