@@ -57,7 +57,7 @@ jobs:
           RCLONE_ONEDRIVE_TOKEN: ${{ secrets.RCLONE_ONEDRIVE_TOKEN }}
           RCLONE_ONEDRIVE_DRIVE_ID: ${{ secrets.RCLONE_ONEDRIVE_DRIVE_ID }}
           RCLONE_ONEDRIVE_DRIVE_TYPE: personal
-          #GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           dest_path: /Linux/Arch/repo
           repo_name: iflygo
           local_path: ${{ steps.download.outputs.download-path }}
