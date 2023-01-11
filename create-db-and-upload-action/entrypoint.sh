@@ -3,11 +3,14 @@ set -e
 
 pacman -Sy tree --noconfirm
 
+echo $PWD
 tree .
 
 init_path=$PWD
 mkdir upload_packages
 cp $local_path/*/*/*.tar.zst ./upload_packages/
+
+tree .
 
 if [ ! -f ~/.config/rclone/rclone.conf ]; then
     mkdir --parents ~/.config/rclone
@@ -28,7 +31,12 @@ fi
 
 cd upload_packages || exit 1
 
+tree .
+
 repo-add "./${repo_name:?}.db.tar.gz" ./*.tar.zst
+
+tree .
+
 python3 $init_path/create-db-and-upload-action/sync.py
 rm "./${repo_name:?}.db.tar.gz"
 rm "./${repo_name:?}.files.tar.gz"

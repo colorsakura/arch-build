@@ -10,6 +10,10 @@ inputs:
     description: 'packages need install before build, separated by space'
     required: false
     default: ""
+  local:
+    description: 'build package with local PKGBUILD file'
+    default: false
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
