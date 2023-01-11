@@ -5,11 +5,12 @@ pkgname=$1
 pacman-key --init
 pacman -Sy --noconfirm
 
+git clone "https://aur.archlinux.org/$pkgname.git" && cd $pkgname
+
 if [ ! -z "$INPUT_PREINSTALLPKGS" ]; then
     pacman -Syu --noconfirm "$INPUT_PREINSTALLPKGS"
+    makepkg -f --noconfirm
+else
+    makepkg -sf --noconfirm
 fi
 
-git clone "https://aur.archlinux.org/$pkgname.git"
-cd "$pkgname"
-echo $PWD
-makepkg -sf --noconfirm
