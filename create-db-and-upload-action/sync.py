@@ -23,8 +23,10 @@ class PkgInfo(NamedTuple):
 
 def get_pkg_infos(file_path: str) -> list["PkgInfo"]:
     """Get packages info from "*.db.tar.gz".
+
     Args:
         file_path (str): DB file path.
+
     Returns:
         list["PkgInfo"]: A list contains all packages info.
     """
