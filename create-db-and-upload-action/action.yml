@@ -12,12 +12,12 @@ inputs:
     required: true
   RCLONE_ONEDRIVE_DRIVE_TYPE:
     required: true
-  dest_path:
-    required: true
-  repo_name:
-    required: true
   GPG_PRIVATE_KEY:
     description: 'Your GPG private key, used to sign repo.'
+  repo_name:
+    required: true
+  dest_path:
+    required: true
   local_path:
     default: './'
 runs:
@@ -31,7 +31,7 @@ runs:
     RCLONE_ONEDRIVE_TOKEN: ${{ inputs.RCLONE_ONEDRIVE_TOKEN }}
     RCLONE_ONEDRIVE_DRIVE_ID: ${{ inputs.RCLONE_ONEDRIVE_DRIVE_ID }}
     RCLONE_ONEDRIVE_DRIVE_TYPE: ${{ inputs.RCLONE_ONEDRIVE_DRIVE_TYPE }}
+    GPG_PRIVATE_KEY: ${{ inputs.GPG_PRIVATE_KEY }}
     dest_path: ${{ inputs.dest_path }}
     repo_name: ${{ inputs.repo_name }}
-    gpg_key: ${{ inputs.GPG_PRIVATE_KEY }}
     local_path: ${{ inputs.local_path }}

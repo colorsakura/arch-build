@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+pacman -Sy tree --noconfirm
+
+tree .
+
 init_path=$PWD
 mkdir upload_packages
 cp $local_path/*/*/*.tar.zst ./upload_packages/
@@ -18,8 +22,8 @@ if [ ! -f ~/.config/rclone/rclone.conf ]; then
     echo "drive_id=$RCLONE_ONEDRIVE_DRIVE_ID" >> ~/.config/rclone/rclone.conf
 fi
 
-if [ ! -z "$gpg_key" ]; then
-    echo "$gpg_key" | gpg --import
+if [ ! -z "$GPG_PRIVATE_KEY" ]; then
+    echo "$GPG_PRIVATE_KEY" | gpg --import
 fi
 
 cd upload_packages || exit 1
@@ -29,7 +33,7 @@ python3 $init_path/create-db-and-upload-action/sync.py
 rm "./${repo_name:?}.db.tar.gz"
 rm "./${repo_name:?}.files.tar.gz"
 
-if [ ! -z "$gpg_key" ]; then
+if [ ! -z "$GPG_PRIVATE_KEY" ]; then
     packages=( "*.tar.zst" )
     for name in $packages
     do
