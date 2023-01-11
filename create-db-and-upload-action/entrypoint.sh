@@ -35,6 +35,8 @@ tree .
 
 repo-add "./${repo_name:?}.db.tar.gz" ./*.tar.zst
 
+gpg --list-keys
+
 if [ ! -z "$GPG_PRIVATE_KEY" ]; then
     packages=( "*.tar.zst" )
     for name in $packages
