@@ -35,12 +35,6 @@ tree .
 
 repo-add "./${repo_name:?}.db.tar.gz" ./*.tar.zst
 
-tree .
-
-python3 $init_path/create-db-and-upload-action/sync.py
-rm "./${repo_name:?}.db.tar.gz"
-rm "./${repo_name:?}.files.tar.gz"
-
 if [ ! -z "$GPG_PRIVATE_KEY" ]; then
     packages=( "*.tar.zst" )
     for name in $packages
