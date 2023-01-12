@@ -9,7 +9,7 @@ jobs:
   buildAUR:
     strategy:
       matrix:
-        repos: [7-zip-full, anki, visual-studio-code-bin]
+        repos: [7-zip-full, anki, visual-studio-code-bin, wlr-randr-git]
         include:
           - repos: anki
             preinstall-pkgs: "pipewire-jack noto-fonts qt6-multimedia-ffmpeg"
