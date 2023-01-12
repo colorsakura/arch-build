@@ -2,8 +2,12 @@ name: BUILD
 
 on:
   push:
+    branches:
+      - build
   schedule:
-    - cron:  '1 */8 * * *'
+    branches:
+      - build
+      - cron:  '1 */8 * * *'
 
 jobs:
   buildAUR:
