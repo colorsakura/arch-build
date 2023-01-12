@@ -36,6 +36,7 @@ if [ ! -z "$GPG_PRIVATE_KEY" ]; then
       if [ ! -z "$GPG_PASSWORD" ]; then
         gpg --batch --passphrase $GPG_PASSWORD --detach-sig --yes $name
         repo-add --verify --sign "./${repo_name:?}.db.tar.gz" ./*.tar.zst
+        ls -al
       else
         gpg --detach-sig --yes $name
         repo-add --verify --sign "./${repo_name:?}.db.tar.gz" ./*.tar.zst

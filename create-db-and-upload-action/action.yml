@@ -1,4 +1,4 @@
-name: 'Generate Arch Repo database and upload'
+name: 'Generate Arch Repo database and Upload'
 inputs:
   RCLONE_ONEDRIVE_CLIENT_ID:
     required: true
@@ -15,7 +15,7 @@ inputs:
   GPG_PRIVATE_KEY:
     description: 'Your GPG private key, used to sign repo.'
   GPG_PASSWORD:
-    description: 'Your GPG master password'
+    description: 'Your GPG master password, if you have set it'
   repo_name:
     required: true
   dest_path:
