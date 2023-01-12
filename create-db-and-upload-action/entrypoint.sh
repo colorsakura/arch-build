@@ -33,8 +33,13 @@ if [ ! -z "$GPG_PRIVATE_KEY" ]; then
     packages=( "*.tar.zst" )
     for name in $packages
     do
+      if [ ! -z "$GPG_PASSWORD" ]; then
+        gpg --batch --passphrase $GPG_PASSWORD --detach-sig --yes $name
+        repo-add --verify --sign "./${repo_name:?}.db.tar.gz" ./*.tar.zst
+      else
         gpg --detach-sig --yes $name
+        repo-add --verify --sign "./${repo_name:?}.db.tar.gz" ./*.tar.zst
+      fi
     done
-    repo-add --verify --sign "./${repo_name:?}.db.tar.gz" ./*.tar.zst
 fi
 rclone copy ./ "onedrive:${dest_path:?}" --copy-links

@@ -14,6 +14,8 @@ inputs:
     required: true
   GPG_PRIVATE_KEY:
     description: 'Your GPG private key, used to sign repo.'
+  GPG_PASSWORD:
+    description: 'Your GPG master password'
   repo_name:
     required: true
   dest_path:
@@ -32,6 +34,7 @@ runs:
     RCLONE_ONEDRIVE_DRIVE_ID: ${{ inputs.RCLONE_ONEDRIVE_DRIVE_ID }}
     RCLONE_ONEDRIVE_DRIVE_TYPE: ${{ inputs.RCLONE_ONEDRIVE_DRIVE_TYPE }}
     GPG_PRIVATE_KEY: ${{ inputs.GPG_PRIVATE_KEY }}
+    GPG_PASSWORD: ${{ inputs.GPG_PASSWORD }}
     dest_path: ${{ inputs.dest_path }}
     repo_name: ${{ inputs.repo_name }}
     local_path: ${{ inputs.local_path }}
