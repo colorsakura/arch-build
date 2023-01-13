@@ -11,10 +11,12 @@ jobs:
   buildAUR:
     strategy:
       matrix:
-        repos: [7-zip-full, anki, visual-studio-code-bin, wlr-randr-git, mpv-handler]
+        repos: [7-zip-full, anki, visual-studio-code-bin, wlr-randr-git, mpv-handler, wayfire]
         include:
           - repos: anki
             preinstall-pkgs: "pipewire-jack noto-fonts qt6-multimedia-ffmpeg"
+          - repos: wayfire
+            localsource: "true"
 
       fail-fast: false
       
@@ -26,6 +28,8 @@ jobs:
     - uses: ./build-aur-action
       with:
         repo-name: ${{ matrix.repos }}
+        preinstallPKGs: ${{ matrix.preinstall-pkgs }}
+        localsource: ${{ matrix.localsource }}
 
     - uses: actions/upload-artifact@v3
       with:
