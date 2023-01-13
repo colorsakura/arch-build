@@ -11,7 +11,7 @@ depends=('cairo' 'pango' 'doctest' 'freetype2' 'glm' 'nlohmann-json'
          'libdrm' 'libevdev' 'libglvnd' 'libinput' 'libjpeg'
          'libpng' 'libxkbcommon' 'libxml2' 'pixman' 'polkit'
          'pkgconf' 'seatd' 'xcb-util-errors' 'xcb-util-renderutil'
-         'xcb-util-wm' 'xorg-xwayland' 'wayland' 'wayland-protocols')
+         'xcb-util-wm' 'wayland' 'wayland-protocols')
 makedepends=('git' 'glslang' 'meson' 'ninja' 'cmake' 'vulkan-headers')
 optdepends=('xorg-xeyes')
 provides=("${pkgname%-git}" 'wlroots' 'wf-config' 'wlroots-git' 'wf-config-git' 'libwlroots.so')
