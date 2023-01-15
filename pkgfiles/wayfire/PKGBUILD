@@ -15,7 +15,7 @@ build() {
     rm -rf build
     arch-meson "${pkgname}-${pkgver}" build \
     --buildtype=release \
-    -Db-lto=true \
+    -Db_lto=true \
     -Duse_system_wfconfig=disabled \
     -Duse_system_wlroots=enabled \
     -Dxwayland=disabled

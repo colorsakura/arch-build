@@ -1,0 +1,12 @@
++ exec meson setup --prefix /usr --libexecdir lib --sbindir bin --buildtype plain --auto-features enabled --wrap-mode nodownload -D b_lto=true -D b_pie=true wayfire-0.7.5 build --buildtype=release -Db-lto=true -Duse_system_wfconfig=disabled -Duse_system_wlroots=enabled -Dxwayland=disabled
+The Meson build system
+Version: 1.0.0
+Source dir: /build/wayfire/src/wayfire-0.7.5
+Build dir: /build/wayfire/src/build
+Build type: native build
+
+wayfire-0.7.5/meson.build:1:0: ERROR: Unknown options: "b-lto"
+
+A full log can be found at /build/wayfire/src/build/meson-logs/meson-log.txt
+[1m[31m==> ERROR:(B[m[1m A failure occurred in build().(B[m
+[1m    Aborting...(B[m
