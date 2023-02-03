@@ -1,35 +1,31 @@
+# Maintainer: Adrian Perez de Castro <aperez@igalia.com>
 pkgname=wayfire
-pkgver=0.8.0
+pkgver=0.7.5
 pkgrel=1
 pkgdesc="3D wayland compositor"
 arch=(x86_64)
 url=https://wayfire.org
 license=(custom:MIT)
-depends=(cairo pango libjpeg libinput 'wlroots>=0.16')
-makedepends=(wayland-protocols meson ninja cmake glm doctest)
+depends=(cairo pango libjpeg libinput 'wlroots>=0.16' 'wlroots<0.17')
+makedepends=(meson ninja wayland-protocols glm cmake doctest)
 conflicts=("${pkgname}-git")
-source=("git+https://github.com/WayfireWM/${pkgname}")
-sha256sums=('SKIP')
+source=("https://github.com/WayfireWM/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('f2e3184e72fe7999488fbba10bd38c29350b447489f02961aab5fa8438698b5c')
 
 build() {
-    cd "${srcdir}/wayfire/"
-    arch-meson build \
-    --buildtype=release \
-    -Db_lto=true \
-    -Duse_system_wfconfig=disabled \
-    -Duse_system_wlroots=enabled \
-    -Dxwayland=disabled
-    ninja -C build
+	rm -rf build
+	arch-meson "${pkgname}-${pkgver}" build -Duse_system_wfconfig=disabled -Duse_system_wlroots=enabled -Dxwayland=disabled
+	ninja -C build
 }
 
-check() {
-    meson test -C build
+check () {
+	meson test -C build
 }
 
 package() {
-    cd "${srcdir}/wayfire"
-    DESTDIR="${pkgdir}/" ninja -C build install
-    install -Dm644 wayfire.desktop "${pkgdir}/usr/share/wayland-sessions/wayfire.desktop"
-    install -Dm644 wayfire.ini "${pkgdir}/usr/share/doc/${pkgname}/wayfire.ini"
-    install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+	DESTDIR="${pkgdir}/" ninja -C build install
+	cd "${pkgname}-${pkgver}"
+	install -Dm644 wayfire.desktop "${pkgdir}/usr/share/wayland-sessions/wayfire.desktop"
+	install -Dm644 wayfire.ini "${pkgdir}/usr/share/doc/${pkgname}/wayfire.ini"
+	install -Dm645 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
