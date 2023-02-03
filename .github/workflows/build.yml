@@ -13,9 +13,9 @@ jobs:
     strategy:
       matrix:
         repos: [7-zip-full, anki, visual-studio-code-bin, wlr-randr-git, mpv-handler, wayfire]
-        # include:
-          # - repos: wayfire
-          #   localsource: "true"
+          include:
+            - repos: wayfire
+              localsource: "true"
         # - repos: anki
         #     preinstall-pkgs: "pipewire-jack noto-fonts qt6-multimedia-ffmpeg"
 
