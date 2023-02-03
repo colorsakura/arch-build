@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         repos: [7-zip-full, anki, visual-studio-code-bin, wlr-randr-git, mpv-handler, wayfire]
-          include:
+        include:
             - repos: wayfire
               localsource: "true"
         # - repos: anki
