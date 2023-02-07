@@ -14,7 +14,7 @@ sha256sums=('f2e3184e72fe7999488fbba10bd38c29350b447489f02961aab5fa8438698b5c')
 
 build() {
 	rm -rf build
-	arch-meson "${pkgname}-${pkgver}" build -Duse_system_wfconfig=disabled -Duse_system_wlroots=enabled -Dxwayland=enabled
+	arch-meson "${pkgname}-${pkgver}" build -Duse_system_wfconfig=disabled -Duse_system_wlroots=enabled -Dxwayland=disabled
 	ninja -C build
 }
 
