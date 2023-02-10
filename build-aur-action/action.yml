@@ -6,8 +6,12 @@ inputs:
   repo-name:
     description: 'AUR repository name to build'
     required: true
-  preinstallPKGs:
+  depend:
     description: 'packages need install before build, separated by space'
+    required: false
+    default: ""
+  aur-depend:
+    description: 'depend packages from aur, separated by space'
     required: false
     default: ""
   localsource:
