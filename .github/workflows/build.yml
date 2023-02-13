@@ -12,7 +12,7 @@ jobs:
   buildAUR:
     strategy:
       matrix:
-        repos: [7-zip-full, anki, visual-studio-code-bin, wlr-randr-git, mpv-handler, wayfire, google-chrome, fcitx5-pinyin-custom-pinyin-dictionary, neovim-git, via-bin, collectd, rofi-lbonn-wayland-git, wayfire-plugins-extra-git]
+        repos: [7-zip-full, anki, visual-studio-code-bin, wlr-randr-git, mpv-handler, wayfire, google-chrome, fcitx5-pinyin-custom-pinyin-dictionary, neovim-git, via-bin, collectd, rofi-lbonn-wayland-git, wayfire-plugins-extra-git, wps-office]
         include:
             - repos: wayfire
               localsource: "true"
