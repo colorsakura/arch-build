@@ -6,18 +6,18 @@ on:
       - master
       - build
   schedule:
-    - cron:  '1 */8 * * *'
+    - cron:  '0 */12 * * *'
 
 jobs:
   buildAUR:
     strategy:
       matrix:
-        repos: [7-zip-full, anki, visual-studio-code-bin, wlr-randr-git, mpv-handler, wayfire, fcitx5-pinyin-custom-pinyin-dictionary, wps-office, hyprland-git, tofi-git]
+        repos: [7-zip-full, anki, visual-studio-code-bin, wlr-randr-git,
+                mpv-handler, wayfire, fcitx5-pinyin-custom-pinyin-dictionary,
+                wps-office, hyprland-git, hyprland, tofi-git]
         include:
             - repos: wayfire
               localsource: "true"
-        # - repos: anki
-        #     preinstall-pkgs: "pipewire-jack noto-fonts qt6-multimedia-ffmpeg"
 
       fail-fast: false
       
