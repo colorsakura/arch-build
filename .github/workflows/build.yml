@@ -15,7 +15,7 @@ jobs:
         repos: [7-zip-full, anki, visual-studio-code-bin, wlr-randr-git,
                 mpv-handler, wayfire, fcitx5-pinyin-custom-pinyin-dictionary,
                 wps-office, hyprland-git, hyprland, tofi-git, waybar-hyprland-git,
-                cliphist]
+                cliphist, goldendict-webengine-git]
         include:
             - repos: wayfire
               localsource: "true"
