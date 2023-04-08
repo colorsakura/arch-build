@@ -12,13 +12,17 @@ jobs:
   buildAUR:
     strategy:
       matrix:
-        repos: [7-zip-full, anki, visual-studio-code-bin, wlr-randr-git,
-                mpv-handler, wayfire, fcitx5-pinyin-custom-pinyin-dictionary,
-                wps-office, hyprland-git, hyprland, tofi-git, waybar-hyprland-git,
-                cliphist, goldendict-webengine-git, xmind]
-        include:
-            - repos: wayfire
-              localsource: "true"
+        repos: 
+          - visual-studio-code-bin
+          - wayfire
+          - fcitx5-pinyin-custom-pinyin-dictionary
+          - wps-office
+          - hyprland-git
+          - tofi-git
+          - waybar-hyprland-git
+          - cliphist
+          - goldendict-webengine-git
+          - xmind
 
       fail-fast: false
       
