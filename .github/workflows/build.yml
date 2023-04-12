@@ -14,14 +14,12 @@ jobs:
       matrix:
         repos: 
           - visual-studio-code-bin
-          - wayfire
           - fcitx5-pinyin-custom-pinyin-dictionary
           - wps-office
           - hyprland-git
           - tofi-git
           - waybar-hyprland-git
           - cliphist
-          - goldendict-webengine-git
           - xmind
 
       fail-fast: false
