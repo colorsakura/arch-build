@@ -21,6 +21,7 @@ jobs:
           - waybar-hyprland-git
           - cliphist
           - xmind
+          - regreet-git
 
       fail-fast: false
       
