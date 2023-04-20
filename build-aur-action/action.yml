@@ -14,10 +14,6 @@ inputs:
     description: 'depend packages from aur, separated by space'
     required: false
     default: ""
-  localsource:
-    description: 'build package with local PKGBUILD file'
-    default: false
-    required: ""
 runs:
   using: 'docker'
   image: 'Dockerfile'

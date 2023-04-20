@@ -33,8 +33,6 @@ jobs:
     - uses: ./build-aur-action
       with:
         repo-name: ${{ matrix.repos }}
-        preinstallPKGs: ${{ matrix.preinstall-pkgs }}
-        localsource: ${{ matrix.localsource }}
 
     - uses: actions/upload-artifact@v3
       with:
