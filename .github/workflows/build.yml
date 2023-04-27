@@ -19,7 +19,6 @@ jobs:
           - hyprland-git
           - tofi-git
           - waybar-hyprland-git
-          - cliphist
           - xmind
           - regreet-git
 
