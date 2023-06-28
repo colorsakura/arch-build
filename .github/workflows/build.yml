@@ -15,12 +15,9 @@ jobs:
         repos: 
           - visual-studio-code-bin
           - fcitx5-pinyin-custom-pinyin-dictionary
-          - wps-office
           - hyprland-git
-          - tofi-git
           - waybar-hyprland-git
-          - xmind
-          - regreet-git
+          - wlroots-git
 
       fail-fast: false
       
