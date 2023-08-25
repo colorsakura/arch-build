@@ -15,9 +15,6 @@ jobs:
         repos: 
           - visual-studio-code-bin
           - fcitx5-pinyin-custom-pinyin-dictionary
-          - hyprland-git
-          - waybar-hyprland-git
-          - wlroots-git
 
       fail-fast: false
       
