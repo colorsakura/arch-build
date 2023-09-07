@@ -1,66 +1,93 @@
-name: BUILD
+name: Builder (Github Actions)
+
+run-name: Build ${{ inputs.pkgbase }}
 
 on:
-  push:
-    branches:
-      - master
-      - build
-  schedule:
-    - cron:  '0 */12 * * *'
+  workflow_dispatch:
+    inputs:
+      pkgbase:
+        description: "Path to pkgbase"
+        required: true
 
 jobs:
-  buildAUR:
-    strategy:
-      matrix:
-        repos: 
-          - visual-studio-code-bin
-          - fcitx5-pinyin-custom-pinyin-dictionary
-
-      fail-fast: false
-      
+  build:
     runs-on: ubuntu-latest
+    container:
+      image: archlinux
+      options: --privileged
+    env:
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: colorsakura/cow/actions/upgrade-archlinux@main
 
-    - uses: ./build-aur-action
-      with:
-        repo-name: ${{ matrix.repos }}
+      - name: Install runtime dependencies
+        run: pacman -S --noconfirm --needed base-devel devtools dbus git github-cli jq pacman-contrib curl wget yq
 
-    - uses: actions/upload-artifact@v3
-      with:
-        path: ./*/*.pkg.tar.zst
-        name: ${{ matrix.repos }}
-        if-no-files-found: error
+      - uses: arch4edu/cactus/actions/setup-cactus@main
 
-    - uses: ncipollo/release-action@v1
-      with:
-        allowUpdates: true
-        tag: "packages"
-        artifacts: "./*/*.zst"
-        token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Export configurations
+        id: config
+        run: python -m cactus.common.config
 
-  uploadToOneDrive:      
-    runs-on: ubuntu-latest
-    if: always()
-    needs: [buildAUR]
-
-    steps:
-      - uses: actions/checkout@v3
-      
-      - uses: actions/download-artifact@v3
-        id: download
-      
-      - uses: ./create-db-and-upload-action
+      - uses: arch4edu/cactus/actions/update-status@main
         with:
-          RCLONE_ONEDRIVE_CLIENT_ID: ${{ secrets.RCLONE_ONEDRIVE_CLIENT_ID }}
-          RCLONE_ONEDRIVE_CLIENT_SECRET: ${{ secrets.RCLONE_ONEDRIVE_CLIENT_SECRET }}
-          RCLONE_ONEDRIVE_REGION: global
-          RCLONE_ONEDRIVE_TOKEN: ${{ secrets.RCLONE_ONEDRIVE_TOKEN }}
-          RCLONE_ONEDRIVE_DRIVE_ID: ${{ secrets.RCLONE_ONEDRIVE_DRIVE_ID }}
-          RCLONE_ONEDRIVE_DRIVE_TYPE: personal
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-          GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
-          dest_path: /Linux/Arch/repo
-          repo_name: iflygo
-          local_path: ${{ steps.download.outputs.download-path }}
+          pkgbase: ${{ github.event.inputs.pkgbase }}
+          status: building
+          workflow: ${{ github.run_id }}
+
+      - uses: actions/checkout@master
+        with:
+          repository: ${{ steps.config.outputs.github_repository }}
+          path: repository
+          token: ${{ steps.config.outputs.github_token }}
+
+      - uses: arch4edu/cactus/actions/config-pacman-repository@main
+        with:
+          pacman-repository: ${{ steps.config.outputs.pacman_repository }}
+          keyring-repository: ${{ steps.config.outputs.pacman_keyring_repository }}
+          mirrorlist-repository: ${{ steps.config.outputs.pacman_mirrorlist_repository }}
+
+      - uses: colorsakura/cow/actions/config-makepkg@main
+
+      - uses: petronny/git-config-user@master
+        with:
+          path: repository
+
+      - name: Configure GitHub CLI
+        run: echo ${{ steps.config.outputs.github_token }} | gh auth login --with-token
+
+      - name: Add path
+        run: echo "$(realpath cactus/builder/bin)" >> $GITHUB_PATH
+
+      - name: Download dependencies
+        run: python -m cactus.builder.download-depends repository ${{ github.event.inputs.pkgbase }}
+
+      - name: Build ${{ github.event.inputs.pkgbase }}
+        uses: arch4edu/cactus/actions/build-package@main
+        id: build
+        with:
+          pkgbase: ${{ github.event.inputs.pkgbase }}
+
+      - uses: arch4edu/cactus/actions/upload-log@main
+        with:
+          pkgbase: ${{ github.event.inputs.pkgbase }}
+
+      - uses: arch4edu/cactus/actions/upload-package@main
+        if: ${{ steps.build.outputs.result == 'built' }}
+        with:
+          pkgbase: ${{ github.event.inputs.pkgbase }}
+
+      - name: Push changes
+        if: ${{ steps.build.outputs.result == 'built' }}
+        run: |
+          cd repository/${{ github.event.inputs.pkgbase }}
+          git-push
+
+      - uses: arch4edu/cactus/actions/update-status@main
+        if: ${{ always() }}
+        with:
+          pkgbase: ${{ github.event.inputs.pkgbase }}
+          status: ${{ steps.build.outputs.result }}
+          workflow: ${{ github.run_id }}
+
+      - uses: arch4edu/cactus/actions/clean@main
