@@ -1,0 +1,18 @@
+name: "Configure makepkg"
+runs:
+  using: "composite"
+  steps:
+    - shell: bash -e {0}
+      run: |
+        sed "s/#\?MAKEFLAGS=.*/MAKEFLAGS=-j$(nproc)/" -i /etc/makepkg.conf
+        dbus-uuidgen --ensure=/etc/machine-id || dbus-uuidgen > /etc/machine-id
+        useradd -g wheel -d $(realpath makepkg) -m makepkg
+        echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+        chown -R makepkg:root makepkg
+
+        # https://bugs.archlinux.org/task/64265
+        # Revert https://gitlab.archlinux.org/archlinux/devtools/-/commit/b7893a2ca8e09062197129881bce3fd6700a573a
+        sed '/yes y/s|.*|pacman -U --noconfirm -- "${pkgnames[@]/#//root/}"|' -i /usr/bin/makechrootpkg
+
+        # Disable debug
+        sed '/^OPTIONS/s/ debug/ !debug/' -i /usr/share/devtools/makepkg.conf.d/*.conf || sed '/^OPTIONS/s/ debug/ !debug/' -i /usr/share/devtools/makepkg-*.conf
