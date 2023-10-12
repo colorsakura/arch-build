@@ -14,7 +14,6 @@ jobs:
       matrix:
         repos: 
           - visual-studio-code-bin
-          - fcitx5-pinyin-custom-pinyin-dictionary
 
       fail-fast: false
       
