@@ -14,6 +14,7 @@ jobs:
       matrix:
         repos: 
           - visual-studio-code-bin
+          - google-chrome
 
       fail-fast: false
       
