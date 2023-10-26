@@ -32,7 +32,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          path: ./buildpkgs/*.pkg.tar.zst
+          path: ./*/*.pkg.tar.zst
           name: ${{ matrix.repos }}
           if-no-files-found: error
 
