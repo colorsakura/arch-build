@@ -36,13 +36,6 @@ jobs:
           name: ${{ matrix.repos }}
           if-no-files-found: error
 
-      - uses: ncipollo/release-action@v1
-        with:
-          allowUpdates: true
-          tag: "packages"
-          artifacts: "./*/*.zst"
-          token: ${{ secrets.GITHUB_TOKEN }}
-
   uploadToOneDrive:
     runs-on: ubuntu-latest
     if: always()
