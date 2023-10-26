@@ -1,21 +1,13 @@
-name: 'Build AUR Package'
+name: "Build AUR Package"
 branding:
   icon: user-check
   color: gray-dark
 inputs:
   repo-name:
-    description: 'AUR repository name to build'
+    description: "AUR repository name to build"
     required: true
-  depend:
-    description: 'packages need install before build, separated by space'
-    required: false
-    default: ""
-  aur-depend:
-    description: 'depend packages from aur, separated by space'
-    required: false
-    default: ""
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "docker"
+  image: "Dockerfile"
   args:
     - ${{ inputs.repo-name }}

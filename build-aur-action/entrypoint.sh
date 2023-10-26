@@ -6,29 +6,19 @@ localpath=$PWD
 pacman-key --init
 pacman -Sy --noconfirm
 
-if [ ! -z "$INPUT_LOCALSOURCE" ]; then
-    echo "build from local source"
-    mkdir ./buildpkgs
-    cd ./pkgfiles/$pkgname
+git clone https://github.com/colorsakura/repo.git
+
+if [ -d "repo/archlinux/${pkgname}" ]; then
+	cd repo/archlinux/${pkgname}
+	makepkg -sf --noconfirm
+	cp *.pkg.tar.zst $localpath/buildpkgs/
 else
-    echo "build from aur package"
-    git clone "https://aur.archlinux.org/$pkgname.git" && cd $pkgname
-    git rev-parse --short HEAD
+	echo "build from aur package"
+	git clone "https://aur.archlinux.org/$pkgname.git" && cd $pkgname
+	git rev-parse --short HEAD
+
+	makepkg -sf --noconfirm
+	cp *.pkg.tar.zst $localpath/buildpkgs/
 fi
 
-if [ ! -z "$INPUT_PREINSTALLPKGS" ]; then
-    echo "manu"
-    pacman -Syu --noconfirm "$INPUT_PREINSTALLPKGS"
-    makepkg -f --noconfirm
-    if [ ! -z "$INPUT_LOCALSOURCE" ]; then
-        cp *.pkg.tar.zst $localpath/buildpkgs/
-    fi
-else
-    echo "auto"
-    makepkg -sf --noconfirm
-    if [ ! -z "$INPUT_LOCALSOURCE" ]; then
-        cp *.pkg.tar.zst $localpath/buildpkgs/
-    fi
-fi
-
-# vim: set sw=4 et:
+# vim: sw=4 noet:
