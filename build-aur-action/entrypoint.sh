@@ -6,6 +6,8 @@ localpath=$PWD
 pacman-key --init
 pacman -Sy --noconfirm
 
+mkdir ./buildpkgs
+
 git clone https://github.com/colorsakura/repo.git
 
 if [ -d "repo/archlinux/${pkgname}" ]; then
