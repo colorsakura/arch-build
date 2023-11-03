@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - build
   schedule:
     - cron: "0 */12 * * *"
 
