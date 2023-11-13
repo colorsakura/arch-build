@@ -17,6 +17,7 @@ jobs:
           - wayfire-git
           - hyprland-git
           - sway-im-git
+          - pot-desktop 
 
       fail-fast: false
 
