@@ -15,7 +15,6 @@ jobs:
         repos:
           - visual-studio-code-bin
           - google-chrome
-          - wayfire-git
           - hyprland-git
           - sway-im-git
 
