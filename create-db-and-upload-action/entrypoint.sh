@@ -21,6 +21,7 @@ if [ ! -f ~/.config/rclone/rclone.conf ]; then
 fi
 
 if [ ! -z "$GPG_PRIVATE_KEY" ]; then
+	export GPG_TTY=$(tty)
 	echo "$GPG_PRIVATE_KEY" | gpg --import
 fi
 
