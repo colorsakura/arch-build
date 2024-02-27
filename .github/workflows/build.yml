@@ -14,9 +14,7 @@ jobs:
       matrix:
         repos:
           - visual-studio-code-bin
-          - google-chrome
-          - hyprland-git
-          - sway-im-git
+          - sway-git
 
       fail-fast: false
 
