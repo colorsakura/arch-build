@@ -15,7 +15,6 @@ jobs:
         repos:
           - visual-studio-code-bin
           - sway-git
-          - zed-editor
 
       fail-fast: false
 
